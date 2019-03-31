@@ -5,35 +5,26 @@
  * and then start the HTTP server.
  */
 
-// var { graphql, buildSchema } = require('graphql');
-//
-// const schema = buildSchema(`
-//   type Query {
-//     hello: String
-//   }
-// `);
-//
-// const root = {
-//     hello: () => {
-//         return 'hello howdy';
-//     },
-// };
-// graphql(schema, '{ hello }', root).then( (response) => {
-//     console.log(response);
-// });
-
-const db = require('knex')({
-    client: 'sqlite3',
-    connection: {
-        filename: "./outline.sqlite3"
-    }
-});
-
-export { db };
-
+if (false) {
+    const db = require('knex')({
+        client: 'sqlite3',
+        connection: {
+            filename: "./outline.sqlite3"
+        }
+    });
 // TODO migration & seeds https://knexjs.org/#Migrations
+}
 
-const app = require('server');
+const express = require('express');
+const graphqlHTTP = require('express-graphql');
+
+const { schema, root } = require('./graph');
+
+const app = express();
+app.use('/graphql', graphqlHTTP({
+    schema: schema,
+    rootValue: root
+}));
 
 app.listen(4000);
 

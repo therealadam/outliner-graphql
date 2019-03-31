@@ -9,7 +9,7 @@ const crypto = require('crypto');
 
 const schema = buildSchema(`
   input NewOutline {
-    text: String!
+    name: String!
   }
   
   type Outline {
@@ -40,7 +40,7 @@ class Outline {
 let fakeDatabase = {};
 
 const makeId = () => {
-    crypto.randomBytes(10).toString('hex');
+    return crypto.randomBytes(10).toString('hex');
 };
 
 const root = {
@@ -56,19 +56,10 @@ const root = {
     createOutline: ({input}) => {
         const id = makeId();
 
-        fakeDatabase[id] = input
+        fakeDatabase[id] = input;
 
         return new Outline(id, input);
     }
 };
-// const root = {
-//     fetchOutline: () => {
-//         return "Not exactly an outline";
-//     },
-//     // XXX really a mutation
-//     createOutline: ({name}) => {
-//         return Outline({ name });
-//     }
-// };
 
-export { schema, root };
+module.exports = { schema, root };

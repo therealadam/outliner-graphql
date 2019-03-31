@@ -1,6 +1,6 @@
 # An outliner, a GraphQL learning experiment
 
-Wherein the author gets back up to speed on building applications around GraphQL APIs.
+Wherein the author gets back up to speed on building applications around GraphQL APIs.[1]
 
 ## Prologue
 
@@ -25,3 +25,7 @@ So, where does it stand, several years later, in early 2019? Time for me to roll
 (we prove this isn't smoke and mirrors)
 
 ## Epilogue
+
+What's essential and accidental complexity here?
+
+fn1. The author's intent is you read this article, then poke around the sources to learn more. That said, the sources are written in a semi-literate style with the hope that a reader can jump right to the part that is of most interest to them and get something out of it in a short time. Godspeed!

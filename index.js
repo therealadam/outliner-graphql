@@ -1,28 +1,41 @@
-const express = require('express');
-const graphqlHTTP = require('express-graphql');
-var { graphql, buildSchema } = require('graphql');
+/* An outliner
+ * -----------
+ *
+ * Entrypoint for the whole thing. Set up the database connection, loggers, etc.
+ * and then start the HTTP server.
+ */
 
-const schema = buildSchema(`
-  type Query {
-    hello: String
-  }
-`);
+// var { graphql, buildSchema } = require('graphql');
+//
+// const schema = buildSchema(`
+//   type Query {
+//     hello: String
+//   }
+// `);
+//
+// const root = {
+//     hello: () => {
+//         return 'hello howdy';
+//     },
+// };
+// graphql(schema, '{ hello }', root).then( (response) => {
+//     console.log(response);
+// });
 
-const root = {
-    hello: () => {
-        return 'hello howdy';
-    },
-};
+const db = require('knex')({
+    client: 'sqlite3',
+    connection: {
+        filename: "./outline.sqlite3"
+    }
+});
 
-const app = express();
-app.use('/graphql', graphqlHTTP({
-    schema: schema,
-    rootValue: root
-}));
+export { db };
+
+// TODO migration & seeds https://knexjs.org/#Migrations
+
+const app = require('server');
+
 app.listen(4000);
 
 console.log("Running a GraphQL API at localhost:4000/graphql");
 
-// graphql(schema, '{ hello }', root).then( (response) => {
-//     console.log(response);
-// });
